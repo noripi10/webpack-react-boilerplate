@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './app.scss';
+import './css/app.scss';
 
 export const App: FC = () => {
   return (
