@@ -1,13 +1,16 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-console.log(process.env.NODE_ENV);
+console.info(process.env.NODE_ENV);
 const isDevelopment = process.env.NODE_ENV === 'development';
+const isAnalyze = process.env.ANALYZE === 'TRUE';
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  // mode: "development",
+  mode: 'development',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
@@ -24,6 +27,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        // .babelrcで設定
+        // options: {
+        //   presets: ['@babel/preset-env', '@babel/preset-react'],
+        // },
       },
       {
         test: /\.tsx?$/,
@@ -34,11 +41,11 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.jpeg$/,
+        test: /\.(bmp|gif|jpe?g|png)$/,
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 1024 * 3,
+            maxSize: 1024 * 10, // 10kb以上はリソース
           },
         },
       },
@@ -59,5 +66,9 @@ module.exports = {
       inject: 'body',
       scriptLoading: 'defer',
     }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: isAnalyze ? 'server' : 'disabled',
+    }),
   ],
+  target: ['web'], //'es5'
 };
