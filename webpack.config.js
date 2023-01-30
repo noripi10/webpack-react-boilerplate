@@ -12,6 +12,9 @@ const isAnalyze = process.env.ANALYZE === 'TRUE';
 module.exports = {
   mode: 'development',
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   entry: {

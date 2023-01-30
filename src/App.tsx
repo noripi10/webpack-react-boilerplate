@@ -1,15 +1,20 @@
 import { FC } from 'react';
+
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { Image } from '@/components/Image';
+
 import './css/app.scss';
 
 export const App: FC = () => {
   return (
     <div className='container'>
-      <header>header!</header>
+      <Header />
       <main className='main'>
-        main
-        <img src={require('./assets/image1.jpeg')} alt='image1' width={120} height={120} />
+        <h1>App.tsx</h1>
+        <Image />
       </main>
-      <footer>footer</footer>
+      <Footer />
     </div>
   );
 };
