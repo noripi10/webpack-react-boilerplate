@@ -27,17 +27,38 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        // .babelrcで設定
-        // options: {
-        //   presets: ['@babel/preset-env', '@babel/preset-react'],
-        // },
-      },
+      // babel-loader
+      // {
+      //   test: /\.jsx?$/,
+      //   loader: 'babel-loader',
+      //   // .babelrcで設定可能
+      //   // options: {
+      //   //   presets: ['@babel/preset-env', '@babel/preset-react'],
+      //   // },
+      // },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      // },
+
+      // swc-loader
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        loader: 'swc-loader',
+        // .swcrcで設定可能
+        options: {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
+              tsx: true,
+            },
+            transform: {
+              react: {
+                runtime: 'automatic',
+              },
+            },
+          },
+        },
       },
       {
         test: /\.s?css$/,
